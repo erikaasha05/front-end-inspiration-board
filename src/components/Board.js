@@ -1,10 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import "./Board.css";
 
 const Board = (props) => {
   return (
     <li>
-      <button onClick={() => props.onSelectBoard(props.id)}>{props.title}</button>
+      <button onClick={() => props.onSelectBoard(props.id)}>
+        {props.title}
+      </button>
     </li>
   );
 };
