@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Board from "./Board";
+import "./BoardList.css";
 
 const BoardList = (props) => {
   console.log(props.boards);
@@ -15,7 +16,12 @@ const BoardList = (props) => {
       />
     );
   });
-  return <ol className="boards-list">{boardComponent}</ol>;
+  return (
+    <section>
+      <h2>Boards</h2>
+      <ol className="boards-list">{boardComponent}</ol>
+    </section>
+  );
 };
 
 BoardList.propTypes = {

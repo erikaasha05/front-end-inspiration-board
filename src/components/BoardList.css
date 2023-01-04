@@ -1,0 +1,4 @@
+.boards-list {
+    border: 1px solid black;
+    overflow: scroll;
+}
