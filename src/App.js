@@ -5,6 +5,7 @@ import CardList from "./components/CardList";
 import "./App.css";
 import axios from "axios";
 import NewBoardForm from "./components/NewBoardForm";
+import NewCardForm from "./components/NewCardForm";
 
 const boardData = [
   {
@@ -32,8 +33,13 @@ function App() {
   return (
     <div className="App">
       <h1>Inspiration Board</h1>
-      <BoardList boards={boardData}></BoardList>
-      <NewBoardForm />
+      <div className="board-container">
+        <BoardList boards={boardData}></BoardList>
+        <NewBoardForm />
+      </div>
+      <h2>Cards For ...</h2>
+      <CardList />
+      <NewCardForm />
     </div>
   );
 }

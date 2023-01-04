@@ -4,7 +4,7 @@ import Board from "./Board";
 import "./BoardList.css";
 
 const BoardList = (props) => {
-  console.log(props.boards);
+  // console.log(props.boards);
   const boardComponent = props.boards.map((board) => {
     return (
       <Board
