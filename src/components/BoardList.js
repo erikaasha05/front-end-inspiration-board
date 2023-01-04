@@ -12,6 +12,7 @@ const BoardList = (props) => {
             key={board.id}
             id={board.id}
             title={board.title}
+            owner={board.owner}
             onSelectBoard={props.onSelectBoard}
           />
         ))}
