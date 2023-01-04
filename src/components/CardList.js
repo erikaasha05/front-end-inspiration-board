@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from 'prop-types';
-
+import "./CardList.css";
 import Card from "./Card";
+// import Board from "./Board";
 
 const CardList = (props) => {
   return (
     <>
-      <h2>Cards for board name </h2>
-      <ul>
+      <h2>Cards for {props.title} </h2>
+      <ul className="cards-list">
         {props.cardData.map((card) => (
           <Card 
-            className="cards-list"
+            // className="cards-list"
             id={card.id} 
             likesCount={card.likesCount} 
             message={card.message} 
