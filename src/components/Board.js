@@ -5,8 +5,8 @@ import "./Board.css";
 const Board = (props) => {
   return (
     <li>
-      <button onClick={() => props.onSelectBoard(props.id)}>
-        {props.title} -{props.owner}
+      <button className="board-name">
+        {props.title} - {props.owner}
       </button>
     </li>
   );
@@ -16,7 +16,7 @@ Board.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   owner: PropTypes.string.isRequired,
-  onSelectBoard: PropTypes.func.isRequired,
+  onSelectBoard: PropTypes.func,
 };
 
 export default Board;
