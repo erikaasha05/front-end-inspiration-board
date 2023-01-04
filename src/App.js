@@ -23,7 +23,6 @@ const boardData = [
     title: "title3",
     owner: "hakai",
   },
-  
 ];
 
 // const selectBoard = id => {

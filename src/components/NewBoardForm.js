@@ -32,42 +32,48 @@ const NewBoardForm = (props) => {
     ? "Show New Board Form"
     : "Hide New Board Form";
 
+  const handleHiddenForm = () => {
+    return setFormData({ ...formData, isHidden: !formData.isHidden });
+  };
+
   return (
     <section>
       <h2>Create a New Board</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <input
-            className={ifTitleEmpty}
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleFormData}
-          />
-        </div>
-        <div>
-          <label htmlFor="owner">Owner's Name</label>
-          <input
-            className={ifOwnerEmpty}
-            type="text"
-            id="owner"
-            name="owner"
-            value={formData.owner}
-            onChange={handleFormData}
-          />
-        </div>
-        <div>
-          <p>
-            Preview: {formData.title} - {formData.owner}
-          </p>
-        </div>
-        <div>
-          <input type="submit" value="Add Board"></input>
-        </div>
-      </form>
-      <button>{showHideForm}</button>
+      {formData.isHidden ? null : (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="title">Title</label>
+            <input
+              className={ifTitleEmpty}
+              type="text"
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleFormData}
+            />
+          </div>
+          <div>
+            <label htmlFor="owner">Owner's Name</label>
+            <input
+              className={ifOwnerEmpty}
+              type="text"
+              id="owner"
+              name="owner"
+              value={formData.owner}
+              onChange={handleFormData}
+            />
+          </div>
+          <div>
+            <p>
+              Preview: {formData.title} - {formData.owner}
+            </p>
+          </div>
+          <div>
+            <input type="submit" value="Add Board"></input>
+          </div>
+        </form>
+      )}
+      <button onClick={handleHiddenForm}>{showHideForm}</button>
     </section>
   );
 };
