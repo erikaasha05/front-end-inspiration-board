@@ -23,6 +23,7 @@ const boardData = [
     title: "title3",
     owner: "hakai",
   },
+  
 ];
 
 // const selectBoard = id => {
@@ -35,6 +36,7 @@ function App() {
       <h1>Inspiration Board</h1>
       <div className="board-container">
         <BoardList boards={boardData}></BoardList>
+        <h2>Selected Board</h2>
         <NewBoardForm />
       </div>
       <h2>Cards For ...</h2>

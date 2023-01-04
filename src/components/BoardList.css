@@ -1,4 +1,13 @@
 .boards-list {
-    border: 1px solid black;
-    overflow: scroll;
+    border: 2px solid black;
+    overflow: auto;
+    width: 15rem;
+    height: 10rem;
+    padding-top: 10px;
+    /* border-radius: 10px; */
+    /* border-top-left-radius: 37px 30px;
+    border-top-right-radius: 23px 130px;
+    border-bottom-left-radius: 110px 19px;
+    border-bottom-right-radius: 120px 24px; */
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 }

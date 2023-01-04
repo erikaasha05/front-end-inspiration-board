@@ -17,10 +17,10 @@ const BoardList = (props) => {
     );
   });
   return (
-    <section>
+    <div>
       <h2>Boards</h2>
       <ol className="boards-list">{boardComponent}</ol>
-    </section>
+    </div>
   );
 };
 
