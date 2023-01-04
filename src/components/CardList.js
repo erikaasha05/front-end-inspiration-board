@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-
+import "./BoardList.css";
 import Card from "./Card";
 
 const CardList = (props) => {
