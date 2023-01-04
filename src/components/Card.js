@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 const Card = (props) => {
   return (
-    <div>
+    <div className="cards-container">
       <p>{props.message}</p>
-      <li>
-        <p>{props.likesCount}</p>
-        <button onClick={() => props.onLikeCard(props.id)}>Like</button>
-        <button onClick={() => props.onDeleteCard(props.id)}>Delete</button>
+      <li className="cards-options">
+        <p className="likes-count">{props.likesCount}</p>
+        <button className="like" onClick={() => props.onLikeCard(props.id)}>Like</button>
+        <button className="card-item-remove_button" onClick={() => props.onDeleteCard(props.id)}>Delete</button>
       </li>
     </div>
   );

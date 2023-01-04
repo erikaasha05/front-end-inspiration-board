@@ -10,6 +10,7 @@ const CardList = (props) => {
       <ul>
         {props.cardData.map((card) => (
           <Card 
+            className="cards-list"
             id={card.id} 
             likesCount={card.likesCount} 
             message={card.message} 
