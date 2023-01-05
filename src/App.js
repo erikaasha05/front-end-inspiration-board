@@ -39,8 +39,8 @@ function App() {
         <NewBoardForm />
       </div>
       <h2>Cards For ...</h2>
-      <CardList />
-      <NewCardForm />
+      {/* <CardList />
+      <NewCardForm /> */}
     </div>
   );
 }
