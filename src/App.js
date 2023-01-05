@@ -70,7 +70,6 @@ function App() {
       <CardList cardData={cardData} />
       </div>
       <div className="new-card-form-container">
-      <h2>Create a New Card</h2>
       <NewCardForm/>
       </div>
     </div>
