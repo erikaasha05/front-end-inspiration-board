@@ -6,9 +6,10 @@
     min-height: 200px;
     padding: 2rem;
     background-color: pink;
-    border-radius: 25px;
+    border-radius: 20px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     list-style-type: none;
+    
 }
 
 .likes-count {
