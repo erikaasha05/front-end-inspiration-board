@@ -25,8 +25,35 @@ const boardData = [
   },
 ];
 
+const cardData = [
+  {
+    id: 1, 
+    message: "hey there", 
+    likesCount: 0
+  }, 
+  {
+    id: 2, 
+    message: "hello", 
+    likesCount: 0
+  },
+  {
+    id: 3,
+    message: "this is the message", 
+    likesCount: 0
+  }
+]
 // const selectBoard = id => {
 //   console.log("pass")
+// };
+
+// const likeCardApi = (id) => {
+//   return axios.patch(`${kBaseUrl}/board/${id}/like`)
+//   .then(response => {
+//     return response.data;
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   })
 // };
 
 function App() {
@@ -38,9 +65,14 @@ function App() {
         <h2>Selected Board</h2>
         <NewBoardForm />
       </div>
+      <div className="cards-container">
       <h2>Cards For ...</h2>
-      <CardList />
-      <NewCardForm />
+      <CardList cardData={cardData} />
+      </div>
+      <div className="new-card-form-container">
+      <h2>Create a New Card</h2>
+      <NewCardForm/>
+      </div>
     </div>
   );
 }

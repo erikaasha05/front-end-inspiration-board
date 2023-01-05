@@ -25,7 +25,7 @@ const NewCardForm = ({handleCardSubmit}) => {
   const invalidInput = cardData.message ? "" : "empty"
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="new-card-form" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="message">Message</label>
         <input
