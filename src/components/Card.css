@@ -1,11 +1,21 @@
-.cards-container {
+.cards-item {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 200px;
     padding: 2rem;
-    /* background-color: ;
-    box-shadow: ;
-    font-family: ; */
+    background-color: pink;
+    border-radius: 25px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    list-style-type: none;
+}
+
+.likes-count {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+p {
+    font-size: 1.4rem;
 }

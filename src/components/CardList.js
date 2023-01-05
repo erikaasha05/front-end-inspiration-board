@@ -7,7 +7,6 @@ import Card from "./Card";
 const CardList = (props) => {
   return (
     <>
-      <h2>Cards for {props.title} </h2>
       <ul className="cards-list">
         {props.cardData.map((card) => (
           <Card 
