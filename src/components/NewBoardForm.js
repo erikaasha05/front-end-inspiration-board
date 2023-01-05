@@ -79,7 +79,7 @@ const NewBoardForm = (props) => {
 };
 
 NewBoardForm.propTypes = {
-  // handleBoardSubmit: PropTypes.func,
+  handleBoardSubmit: PropTypes.func.isRequired,
 };
 
 export default NewBoardForm;

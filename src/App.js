@@ -7,43 +7,43 @@ import axios from "axios";
 import NewBoardForm from "./components/NewBoardForm";
 import NewCardForm from "./components/NewCardForm";
 
-const kBaseUrl = 'https://inspiration-board-back-end.herokuapp.com/boards'
+const kBaseUrl = 'https://inspiration-board-back-end.herokuapp.com'
 
-// const boardData = [
-//   {
-//     id: 1,
-//     title: "Title",
-//     owner: "Erika",
-//   },
-//   {
-//     id: 2,
-//     title: "Title2",
-//     owner: "erika",
-//   },
-//   {
-//     id: 3,
-//     title: "title3",
-//     owner: "hakai",
-//   },
-// ];
+const boardData = [
+  {
+    id: 1,
+    title: "Title",
+    owner: "Erika",
+  },
+  {
+    id: 2,
+    title: "Title2",
+    owner: "erika",
+  },
+  {
+    id: 3,
+    title: "title3",
+    owner: "hakai",
+  },
+];
 
-// const cardData = [
-//   {
-//     id: 1, 
-//     message: "hey there", 
-//     likesCount: 0
-//   }, 
-//   {
-//     id: 2, 
-//     message: "hello", 
-//     likesCount: 0
-//   },
-//   {
-//     id: 3,
-//     message: "this is the message", 
-//     likesCount: 0
-//   }
-// ]
+const cardData = [
+  {
+    id: 1, 
+    message: "hey there", 
+    likesCount: 0
+  }, 
+  {
+    id: 2, 
+    message: "hello", 
+    likesCount: 0
+  },
+  {
+    id: 3,
+    message: "this is the message", 
+    likesCount: 0
+  }
+]
 
 const convertFromApi = (apiBoard) => {
   const {cardsId, ...rest} = apiBoard;
@@ -68,11 +68,12 @@ const getAllBoardsApi = () => {
   });
 };
 
-const createBoardsApi = (boardData) => {
-  const requestBody = {...boardData};
-  return axios.post(`${kBaseUrl}/boards`, requestBody)
+const createBoardsApi = (newBoardData) => {
+  // const requestBody = {...boardData};
+  return axios.post(`${kBaseUrl}/boards`, newBoardData)
   .then(response => {
-    return convertFromApi(response.data.boards);
+    // return convertFromApi(response.data.boards);
+    return response.data.board;
   })
   .catch(error => {
     console.log(error);
@@ -121,13 +122,22 @@ const deleteCardApi = (cardsId) => {
 };
 
 function App() {
+
+  const handleBoardSubmit = (data) => {
+    createBoardsApi(data)
+      .then((newBoard) => {
+        console.log(newBoard);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="App">
       <h1>Inspiration Board</h1>
       <div className="board-container">
         <BoardList boards={boardData} selectBoard={getAllCardsApi}></BoardList>
         <h2>Selected Board</h2>
-        <NewBoardForm />
+        <NewBoardForm handleBoardSubmit={handleBoardSubmit} />
       </div>
       <div className="cards-container">
       <h2>Cards For ...</h2>
