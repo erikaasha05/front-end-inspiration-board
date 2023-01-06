@@ -7,20 +7,20 @@ import axios from "axios";
 import NewBoardForm from "./components/NewBoardForm";
 import NewCardForm from "./components/NewCardForm";
 
-const kBaseUrl = 'https://inspiration-board-back-end.herokuapp.com/boards'
+const kBaseUrl = 'https://inspiration-board-back-end.herokuapp.com'
 
 
 const convertFromApi = (apiBoard) => {
-  const {cardsId, ...rest} = apiBoard;
+  const {boardId, ...rest} = apiBoard;
   // eslint-disable-next-line no-undef
-  const newBoard = {cardsId: cards_id, ...rest};
+  const newBoard = {boardId: board_id, ...rest};
   return newBoard
 };
 
 const convertFromCardApi = (apiCard) => {
-  const {likesCount, ...rest} = apiCard;
+  const {likesCount, cardId, ...rest} = apiCard;
   // eslint-disable-next-line no-undef
-  const newCard = {likesCount: likes_count, ...rest};
+  const newCard = {likesCount: likes_count, cardId: card_id, ...rest};
   return newCard;
 };
 const getAllBoardsApi = () => {
@@ -59,7 +59,8 @@ const createCardApi = (id) => {
 };
 
 const likeCardApi = (cardsId) => {
-  return axios.patch(`${kBaseUrl}/boards/id/cards/${cardsId}/like`)
+  // return axios.patch(`${kBaseUrl}/boards/id/cards/${cardsId}/like`)
+  return axios.patch(`${kBaseUrl}/${cardsId}/like`)
   .then(response => {
     return convertFromCardApi(response.data.cards)
   })
@@ -68,8 +69,8 @@ const likeCardApi = (cardsId) => {
   })
 };
 
-const getAllCardsApi = (id) => {
-  return axios.get(`${kBaseUrl}/boards/${id}`)
+const getAllCardsApi = (boardId) => {
+  return axios.get(`${kBaseUrl}/boards/${boardId}`)
   .then(response => {
     return convertFromCardApi(response.data.cards);
   })
@@ -79,7 +80,8 @@ const getAllCardsApi = (id) => {
 };
 
 const deleteCardApi = (cardsId) => {
-  return axios.delete(`${kBaseUrl}/boards/id/cards/${cardsId}`)
+  // return axiosaxios.delete(`${kBaseUrl}/boards/id/cards/${cardsId}/like`)
+  return axios.delete(`${kBaseUrl}/cards/${cardsId}`)
   .catch(error => {
     console.log(error);
   });
