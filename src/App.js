@@ -23,6 +23,7 @@ const convertFromCardApi = (apiCard) => {
   const newCard = {likesCount: likes_count, cardId: card_id, ...rest};
   return newCard;
 };
+
 const getAllBoardsApi = () => {
   return axios.get(`${kBaseUrl}/boards`)
   .then(response => {
@@ -33,20 +34,18 @@ const getAllBoardsApi = () => {
   });
 };
 
-const createBoardsApi = (boardData) => {
-  const requestBody = {...boardData};
-  return axios.post(`${kBaseUrl}/boards`, requestBody)
-  .then(response => {
-    return convertFromApi(response.data.boards);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+const createBoardsApi = (newBoardData) => {
+  // const requestBody = {...boardData};
+  return axios
+    .post(`${kBaseUrl}/boards`, newBoardData)
+    .then((response) => {
+      return convertFromApi(response.data.board);
+      // return response.data.board;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
-
-// const selectBoard = id => {
-//   return getAllCardsApi(${id});
-// };
 
 const createCardApi = (id) => {
   return axios.post(`${kBaseUrl}/boards/${id}/cards`)
@@ -89,6 +88,8 @@ const deleteCardApi = (cardsId) => {
 
 function App() {
   const [cardData, setCardData] = useState([]);
+  const [boardData, setBoardData] = useState([]);
+  const [selectedBoard, setSelectedBoard] = useState("");
 
   const getAllCards = () => {
     return getAllCardsApi()
@@ -97,8 +98,15 @@ function App() {
     })
   };
 
+  const getAllBoards = () => {
+    return getAllBoardsApi().then((boards) => {
+      setBoardData(boards);
+    });
+  };
+
   useEffect(() => {
     getAllCards();
+    getAllBoards();
   }, []);
 
   const likeCard = (id) => {
@@ -130,13 +138,29 @@ function App() {
     .catch(error => console.log(error));
   };
 
+  const selectBoard = (title, owner) => {
+    setSelectedBoard(`${title} - ${owner}`);
+    // return getAllCardsApi(id);
+  };
+
+  const currentBoard = selectedBoard ? selectedBoard : "Select a Board from the Board List!"
+
+  const handleBoardSubmit = (data) => {
+    createBoardsApi(data)
+      .then((newBoard) => {
+        setBoardData([...boardData, newBoard]);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="App">
       <h1>Inspiration Board</h1>
       <div className="board-container">
-        <BoardList boards={boardData} selectBoard={getAllCardsApi}></BoardList>
+        <BoardList boards={boardData} onSelectBoard={selectBoard}></BoardList>
         <h2>Selected Board</h2>
-        <NewBoardForm />
+        <p>{currentBoard}</p>
+        <NewBoardForm handleBoardSubmit={handleBoardSubmit} />
       </div>
       <div className="cards-container">
       <h2>Cards For ...</h2>
