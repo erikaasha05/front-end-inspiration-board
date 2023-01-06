@@ -1,28 +1,29 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 const kDefaultFormState = {
   message: ""
 };
 
-const NewCardForm = ({handleCardSubmit}) => {
-  
+const NewCardForm = ({ handleCardSubmit, currentBoard }) => {
   const [cardData, setCardData] = useState(kDefaultFormState);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleCardSubmit(cardData);
+    console.log(cardData);
+    console.log(currentBoard.boardId);
+    handleCardSubmit(currentBoard.boardId, cardData);
     setCardData(kDefaultFormState);
   };
-  
+
   const handleCardFormData = (event) => {
     const dataValue = event.target.value;
     const dataName = event.target.name;
 
-    const newCardData = {...cardData, [dataName]: dataValue}
+    const newCardData = { ...cardData, [dataName]: dataValue };
     setCardData(newCardData);
   };
 
-  const invalidInput = cardData.message ? "" : "empty"
+  const invalidInput = cardData.message ? "" : "empty";
 
   return (
     <section>
@@ -32,22 +33,20 @@ const NewCardForm = ({handleCardSubmit}) => {
           <label htmlFor="message">Message</label>
           <input
             className={invalidInput}
-            type="text" 
-            id="message" 
-            name="message" 
-            value={cardData.message} 
-            onChange={handleCardFormData} 
+            type="text"
+            id="message"
+            name="message"
+            value={cardData.message}
+            onChange={handleCardFormData}
           />
-          <p>
-            Preview: {cardData.message}
-          </p>
+          <p>Preview: {cardData.message}</p>
         </div>
         <div>
           <input type="submit" value="Add a Card" />
         </div>
       </form>
     </section>
-  )
+  );
 };
 
 export default NewCardForm;

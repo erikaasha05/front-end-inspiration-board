@@ -7,31 +7,43 @@ import axios from "axios";
 import NewBoardForm from "./components/NewBoardForm";
 import NewCardForm from "./components/NewCardForm";
 
-const kBaseUrl = 'https://inspiration-board-back-end.herokuapp.com'
-
+const kBaseUrl = "https://inspiration-board-back-end.herokuapp.com";
 
 const convertFromApi = (apiBoard) => {
-  const {boardId, ...rest} = apiBoard;
+  const { board_id, ...rest } = apiBoard;
   // eslint-disable-next-line no-undef
-  const newBoard = {boardId: board_id, ...rest};
-  return newBoard
+  const newBoard = { boardId: board_id, ...rest };
+  return newBoard;
 };
 
 const convertFromCardApi = (apiCard) => {
-  const {likesCount, cardId, ...rest} = apiCard;
+  const { likes_count, card_id, ...rest } = apiCard;
   // eslint-disable-next-line no-undef
-  const newCard = {likesCount: likes_count, cardId: card_id, ...rest};
+  const newCard = { likesCount: likes_count, cardId: card_id, ...rest };
   return newCard;
 };
 
 const getAllBoardsApi = () => {
-  return axios.get(`${kBaseUrl}/boards`)
-  .then(response => {
-    return response.data.map(convertFromApi);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+  return axios
+    .get(`${kBaseUrl}/boards`)
+    .then((response) => {
+      return response.data.map(convertFromApi);
+    })
+    .catch((error) => {
+      console.log(`error from get board api ${error}`);
+    });
+};
+
+const getAllCardsApi = (boardId) => {
+  return axios
+    .get(`${kBaseUrl}/boards/${boardId}/cards`)
+    .then((response) => {
+      console.log(response.data.cards);
+      return response.data.cards.map(convertFromCardApi);
+    })
+    .catch((error) => {
+      console.log(`from card api call ${error}`);
+    });
 };
 
 const createBoardsApi = (newBoardData) => {
@@ -47,41 +59,33 @@ const createBoardsApi = (newBoardData) => {
     });
 };
 
-const createCardApi = (id) => {
-  return axios.post(`${kBaseUrl}/boards/${id}/cards`)
-  .then(response => {
-    return convertFromCardApi(response.data.cards)
-  })
-  .catch(error=> {
-    console.log(error);
-  });
+const createCardApi = (boardId, newCardData) => {
+  return axios
+    .post(`${kBaseUrl}/boards/${boardId}/cards`, newCardData)
+    .then((response) => {
+      return convertFromCardApi(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
-const likeCardApi = (cardsId) => {
+const likeCardApi = (cardId) => {
   // return axios.patch(`${kBaseUrl}/boards/id/cards/${cardsId}/like`)
-  return axios.patch(`${kBaseUrl}/cards/${cardsId}`)
-  .then(response => {
-    return convertFromCardApi(response.data.cards)
-  })
-  .catch(error => {
-    console.log(error);
-  })
+  return axios
+    .patch(`${kBaseUrl}/cards/${cardId}`)
+    .then((response) => {
+      console.log(response.data.card);
+      return convertFromCardApi(response.data.card);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
-const getAllCardsApi = (boardId) => {
-  return axios.get(`${kBaseUrl}/boards/${boardId}`)
-  .then(response => {
-    return convertFromCardApi(response.data.cards);
-  })
-  .catch(error => {
-    console.log(error);
-  });
-};
-
-const deleteCardApi = (cardsId) => {
+const deleteCardApi = (cardId) => {
   // return axiosaxios.delete(`${kBaseUrl}/boards/id/cards/${cardsId}/like`)
-  return axios.delete(`${kBaseUrl}/cards/${cardsId}`)
-  .catch(error => {
+  return axios.delete(`${kBaseUrl}/cards/${cardId}`).catch((error) => {
     console.log(error);
   });
 };
@@ -89,13 +93,16 @@ const deleteCardApi = (cardsId) => {
 function App() {
   const [cardData, setCardData] = useState([]);
   const [boardData, setBoardData] = useState([]);
-  const [selectedBoard, setSelectedBoard] = useState("");
+  const [selectedBoard, setSelectedBoard] = useState({
+    boardName: "",
+    boardId: null,
+  });
 
-  const getAllCards = () => {
-    return getAllCardsApi()
-    .then(cards => {
+  const getAllCards = (boardId) => {
+    return getAllCardsApi(boardId).then((cards) => {
+      console.log(cards);
       setCardData(cards);
-    })
+    });
   };
 
   const getAllBoards = () => {
@@ -105,45 +112,47 @@ function App() {
   };
 
   useEffect(() => {
-    getAllCards();
+    // getAllCards();
     getAllBoards();
   }, []);
 
-  const likeCard = (id) => {
-    return likeCardApi(id)
-    .then(cardResult => {
-      setCardData(cardData => cardData.map(card => {
-        if(card.id === cardResult.id) {
-          return cardResult;
-        } else {
-          return card;
-        }
-      }));
-    })
+  const likeCard = (cardId) => {
+    return likeCardApi(cardId).then((cardResult) => {
+      setCardData((cardData) =>
+        cardData.map((card) => {
+          if (card.cardId === cardResult.cardId) {
+            return cardResult;
+          } else {
+            return card;
+          }
+        })
+      );
+    });
   };
 
-
-  const deleteCard = id => {
-    return deleteCardApi(id)
-    .then(cardResult => {
+  const deleteCard = (cardId) => {
+    return deleteCardApi(cardId).then((cardResult) => {
       return getAllCards();
     });
   };
 
-  const handleCardSubmit = (data) => {
-    createCardApi(data)
-    .then(newCard => {
-      setCardData([...cardData, newCard])
-    })
-    .catch(error => console.log(error));
+  const handleCardSubmit = (boardId, newCardData) => {
+    createCardApi(boardId, newCardData)
+      .then((newCard) => {
+        setCardData([...cardData, newCard]);
+      })
+      .catch((error) => console.log(error));
   };
 
-  const selectBoard = (title, owner) => {
-    setSelectedBoard(`${title} - ${owner}`);
+  const selectBoard = (title, owner, boardId) => {
+    setSelectedBoard({ boardName: `${title} - ${owner}`, boardId: boardId });
+    getAllCards(boardId);
     // return getAllCardsApi(id);
   };
 
-  const currentBoard = selectedBoard ? selectedBoard : "Select a Board from the Board List!"
+  const currentBoard = selectedBoard.boardName
+    ? selectedBoard.boardName
+    : "Select a Board from the Board List!";
 
   const handleBoardSubmit = (data) => {
     createBoardsApi(data)
@@ -163,11 +172,18 @@ function App() {
         <NewBoardForm handleBoardSubmit={handleBoardSubmit} />
       </div>
       <div className="cards-container">
-      <h2>Cards For ...</h2>
-      <CardList cardData={cardData} onLikeCard={likeCard} onDeleteCard={deleteCard}/>
+        <h2>Cards For {currentBoard}</h2>
+        <CardList
+          cardData={cardData}
+          onLikeCard={likeCard}
+          onDeleteCard={deleteCard}
+        />
       </div>
       <div className="new-card-form-container">
-      <NewCardForm handleCardSubmit={handleCardSubmit}/>
+        <NewCardForm
+          handleCardSubmit={handleCardSubmit}
+          currentBoard={selectedBoard}
+        />
       </div>
     </div>
   );
