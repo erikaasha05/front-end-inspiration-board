@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import BoardList from "./components/BoardList";
 import CardList from "./components/CardList";
@@ -9,41 +9,6 @@ import NewCardForm from "./components/NewCardForm";
 
 const kBaseUrl = 'https://inspiration-board-back-end.herokuapp.com/boards'
 
-// const boardData = [
-//   {
-//     id: 1,
-//     title: "Title",
-//     owner: "Erika",
-//   },
-//   {
-//     id: 2,
-//     title: "Title2",
-//     owner: "erika",
-//   },
-//   {
-//     id: 3,
-//     title: "title3",
-//     owner: "hakai",
-//   },
-// ];
-
-// const cardData = [
-//   {
-//     id: 1, 
-//     message: "hey there", 
-//     likesCount: 0
-//   }, 
-//   {
-//     id: 2, 
-//     message: "hello", 
-//     likesCount: 0
-//   },
-//   {
-//     id: 3,
-//     message: "this is the message", 
-//     likesCount: 0
-//   }
-// ]
 
 const convertFromApi = (apiBoard) => {
   const {cardsId, ...rest} = apiBoard;
@@ -121,6 +86,48 @@ const deleteCardApi = (cardsId) => {
 };
 
 function App() {
+  const [cardData, setCardData] = useState([]);
+
+  const getAllCards = () => {
+    return getAllCardsApi()
+    .then(cards => {
+      setCardData(cards);
+    })
+  };
+
+  useEffect(() => {
+    getAllCards();
+  }, []);
+
+  const likeCard = (id) => {
+    return likeCardApi(id)
+    .then(cardResult => {
+      setCardData(cardData => cardData.map(card => {
+        if(card.id === cardResult.id) {
+          return cardResult;
+        } else {
+          return card;
+        }
+      }));
+    })
+  };
+
+
+  const deleteCard = id => {
+    return deleteCardApi(id)
+    .then(cardResult => {
+      return getAllCards();
+    });
+  };
+
+  const handleCardSubmit = (data) => {
+    createCardApi(data)
+    .then(newCard => {
+      setCardData([...cardData, newCard])
+    })
+    .catch(error => console.log(error));
+  };
+
   return (
     <div className="App">
       <h1>Inspiration Board</h1>
@@ -131,10 +138,10 @@ function App() {
       </div>
       <div className="cards-container">
       <h2>Cards For ...</h2>
-      <CardList cardData={cardData} />
+      <CardList cardData={cardData} onLikeCard={likeCard} onDeleteCard={deleteCard}/>
       </div>
       <div className="new-card-form-container">
-      <NewCardForm/>
+      <NewCardForm handleCardSubmit={handleCardSubmit}/>
       </div>
     </div>
   );
