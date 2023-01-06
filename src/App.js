@@ -7,7 +7,7 @@ import axios from "axios";
 import NewBoardForm from "./components/NewBoardForm";
 import NewCardForm from "./components/NewCardForm";
 
-const kBaseUrl = "https://inspiration-board-back-end.herokuapp.com";
+const kBaseUrl = "http://localhost:5000";
 
 // const boardData = [
 //   {
@@ -52,12 +52,12 @@ const convertFromApi = (apiBoard) => {
   return newBoard;
 };
 
-// const convertFromCardApi = (apiCard) => {
-//   const { likesCount, ...rest } = apiCard;
-//   // eslint-disable-next-line no-undef
-//   const newCard = { likesCount: likes_count, ...rest };
-//   return newCard;
-// };
+const convertFromCardApi = (apiCard) => {
+  const { likesCount, ...rest } = apiCard;
+  // eslint-disable-next-line no-undef
+  const newCard = { likesCount: likes_count, ...rest };
+  return newCard;
+};
 const getAllBoardsApi = () => {
   return axios
     .get(`${kBaseUrl}/boards`)
@@ -82,10 +82,6 @@ const createBoardsApi = (newBoardData) => {
     });
 };
 
-// const selectBoard = id => {
-//   return getAllCardsApi(${id});
-// };
-
 // const createCardApi = (id) => {
 //   return axios
 //     .post(`${kBaseUrl}/boards/${id}`)
@@ -108,16 +104,16 @@ const createBoardsApi = (newBoardData) => {
 //     });
 // };
 
-// const getAllCardsApi = (id) => {
-//   return axios
-//     .get(`${kBaseUrl}/boards/${id}`)
-//     .then((response) => {
-//       return convertFromCardApi(response.data.cards);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
+const getAllCardsApi = (id) => {
+  return axios
+    .get(`${kBaseUrl}/boards/${id}`)
+    .then((response) => {
+      return convertFromCardApi(response.data.cards);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 // const deleteCardApi = (cardsId) => {
 //   return axios
@@ -130,7 +126,7 @@ const createBoardsApi = (newBoardData) => {
 function App() {
   // const [cardData, setCardData] = useState([]);
   const [boardData, setBoardData] = useState([]);
-
+  const [selectedBoard, setSelectedBoard] = useState("");
   // const getAllCards = () => {
   //   return getAllCardsApi()
   //   .then(cards => {
@@ -146,9 +142,15 @@ function App() {
   const getAllBoards = () => {
     return getAllBoardsApi().then((boards) => {
       setBoardData(boards);
-      console.log(boards);
     });
   };
+
+  const selectBoard = (title, owner) => {
+    setSelectedBoard(`${title} - ${owner}`);
+    // return getAllCardsApi(id);
+  };
+
+  const currentBoard = selectedBoard ? selectedBoard : "Select a Board from the Board List!"
 
   // const likeCard = (id) => {
   //   return likeCardApi(id)
@@ -181,7 +183,7 @@ function App() {
   const handleBoardSubmit = (data) => {
     createBoardsApi(data)
       .then((newBoard) => {
-        console.log(newBoard);
+        setBoardData([...boardData, newBoard]);
       })
       .catch((err) => console.log(err));
   };
@@ -189,9 +191,10 @@ function App() {
   return (
     <div className="App">
       <h1>Inspiration Board</h1>
+      <h2>Selected Board</h2>
+      <p>{currentBoard}</p>
       <div className="board-container">
-        <BoardList boards={boardData}></BoardList>
-        <h2>Selected Board</h2>
+        <BoardList boards={boardData} onSelectBoard={selectBoard}></BoardList>
         <NewBoardForm handleBoardSubmit={handleBoardSubmit} />
       </div>
       <div className="cards-container">
