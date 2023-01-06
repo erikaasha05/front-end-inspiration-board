@@ -49,7 +49,7 @@ const createBoardsApi = (boardData) => {
 // };
 
 const createCardApi = (id) => {
-  return axios.post(`${kBaseUrl}/boards/${id}`)
+  return axios.post(`${kBaseUrl}/boards/${id}/cards`)
   .then(response => {
     return convertFromCardApi(response.data.cards)
   })
@@ -60,7 +60,7 @@ const createCardApi = (id) => {
 
 const likeCardApi = (cardsId) => {
   // return axios.patch(`${kBaseUrl}/boards/id/cards/${cardsId}/like`)
-  return axios.patch(`${kBaseUrl}/${cardsId}/like`)
+  return axios.patch(`${kBaseUrl}/cards/${cardsId}`)
   .then(response => {
     return convertFromCardApi(response.data.cards)
   })
