@@ -8,8 +8,8 @@ const BoardList = (props) => {
   const boardComponent = props.boards.map((board) => {
     return (
       <Board
-        key={board.id}
-        id={board.id}
+        key={board.boardId}
+        id={board.boardId}
         title={board.title}
         owner={board.owner}
         onSelectBoard={props.onSelectBoard}
@@ -27,7 +27,7 @@ const BoardList = (props) => {
 BoardList.propTypes = {
   boards: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      boardId: PropTypes.number.isRequired,
       owner: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
     })
