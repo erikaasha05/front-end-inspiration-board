@@ -11,7 +11,7 @@ const CardList = (props) => {
         {props.cardData.map((card) => (
           <Card 
             // className="cards-list"
-            id={card.id} 
+            cardId={card.cardId} 
             likesCount={card.likesCount} 
             message={card.message} 
             onDeleteCard={props.onDeleteCard} 
@@ -25,7 +25,7 @@ const CardList = (props) => {
 
 CardList.propTypes = {
   cardData: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    cardId: PropTypes.number.isRequired,
     likesCount: PropTypes.number.isRequired,
     message: PropTypes.string.isRequired,
   })),

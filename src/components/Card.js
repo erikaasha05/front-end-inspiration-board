@@ -8,15 +8,15 @@ const Card = (props) => {
       <p>{props.message}</p>
       <li className="cards-options">
         <p className="likes-count">{props.likesCount}</p>
-        <button className="like" onClick={() => props.onLikeCard(props.id)}>❤️</button>
-        <button className="card-item-remove_button" onClick={() => props.onDeleteCard(props.id)}>❌</button>
+        <button className="like" onClick={() => props.onLikeCard(props.cardId)}>❤️</button>
+        <button className="card-item-remove_button" onClick={() => props.onDeleteCard(props.cardId)}>❌</button>
       </li>
     </div>
   );
 };
 
 Card.propTypes = {
-  id: PropTypes.number.isRequired,
+  cardId: PropTypes.number.isRequired,
   likesCount: PropTypes.number.isRequired,
   message: PropTypes.string.isRequired,
   onDeleteCard: PropTypes.func.isRequired,
