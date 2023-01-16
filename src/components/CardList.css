@@ -1,13 +1,8 @@
 .cards-list {
-    /* position: absolute; */
-    /* left: 150px; */
     grid-gap: 2rem;
     display: grid;
-    /* grid-template-columns: 1fr 2fr; */
     margin: 2rem;
-    /* grid-auto-columns: 200px; */
     grid-template-columns: 150px 150px 150px;
-    grid-template-rows: 80px auto 80px; 
     column-gap: 10px;
     row-gap: 15px;
     grid-column-start: 1;

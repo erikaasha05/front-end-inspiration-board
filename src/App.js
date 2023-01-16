@@ -163,27 +163,31 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Inspiration Board</h1>
-      <div className="board-container">
-        <BoardList boards={boardData} onSelectBoard={selectBoard}></BoardList>
-        <h2>Selected Board</h2>
-        <p>{currentBoard}</p>
-        <NewBoardForm handleBoardSubmit={handleBoardSubmit} />
-      </div>
-      <div className="cards-container">
-        <h2>Cards For {currentBoard}</h2>
-        <CardList
-          cardData={cardData}
-          onLikeCard={likeCard}
-          onDeleteCard={deleteCard}
-        />
-      </div>
-      <div className="new-card-form-container">
-        <NewCardForm
-          handleCardSubmit={handleCardSubmit}
-          currentBoard={selectedBoard}
-        />
+    <div className="page_container">
+      <div className="App">
+        <h1>Inspiration Board</h1>
+        <div className="board-container">
+          <BoardList boards={boardData} onSelectBoard={selectBoard}></BoardList>
+          <h2>Selected Board</h2>
+          <p>{currentBoard}</p>
+          <NewBoardForm handleBoardSubmit={handleBoardSubmit} />
+        </div>
+        <section className="cards-container">
+          <div className="card-items_container">
+          <h2>Cards For {currentBoard}</h2>
+          <CardList
+            cardData={cardData}
+            onLikeCard={likeCard}
+            onDeleteCard={deleteCard}
+          />
+          </div>
+          <div className="new-card-form-container">
+            <NewCardForm
+              handleCardSubmit={handleCardSubmit}
+              currentBoard={selectedBoard}
+            />
+          </div>
+        </section>
       </div>
     </div>
   );

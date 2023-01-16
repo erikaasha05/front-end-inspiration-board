@@ -1,16 +1,36 @@
+.page_container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .App {
   text-align: center;
+  align-content: space-around;
+  flex: 1 0 auto;
+  /* display: block; */
+  justify-content: space-around;
 }
 
 .board-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  /* display: flex; */
+  display: grid;
+  /* flex-direction: row; */
+  /* justify-content: space-around; */
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .cards-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
+}
+
+.card-items_container {
+  grid-gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-rows: auto; */
+  margin: 2rem;
 }
 
 .new-card-form-container {
