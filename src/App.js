@@ -131,9 +131,10 @@ function App() {
   };
 
   const deleteCard = (cardId) => {
-    return deleteCardApi(cardId).then((cardResult) => {
-      return getAllCards();
-    });
+    setCardData((cardData) => 
+    cardData.filter((card)=> {
+      return card.cardId !== cardId;
+    }))
   };
 
   const handleCardSubmit = (boardId, newCardData) => {
