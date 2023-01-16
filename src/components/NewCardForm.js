@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./NewCardForm.css"
 
 const kDefaultFormState = {
   message: ""
@@ -9,8 +10,6 @@ const NewCardForm = ({ handleCardSubmit, currentBoard }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(cardData);
-    console.log(currentBoard.boardId);
     handleCardSubmit(currentBoard.boardId, cardData);
     setCardData(kDefaultFormState);
   };
@@ -23,8 +22,9 @@ const NewCardForm = ({ handleCardSubmit, currentBoard }) => {
     setCardData(newCardData);
   };
 
-  const invalidInput = cardData.message ? "" : "empty";
 
+  const invalidInput = cardData.message ? "" : "empty";
+  
   return (
     <section>
       <h2>Create a New Card</h2>
@@ -38,11 +38,12 @@ const NewCardForm = ({ handleCardSubmit, currentBoard }) => {
             name="message"
             value={cardData.message}
             onChange={handleCardFormData}
+            maxLength="40"
           />
           <p>Preview: {cardData.message}</p>
         </div>
         <div>
-          <input type="submit" value="Add a Card" />
+          <input type="submit" value="Add a Card"/>
         </div>
       </form>
     </section>
