@@ -69,7 +69,7 @@ const NewBoardForm = (props) => {
             </p>
           </div>
           <div>
-            <input type="submit" value="Add Board"></input>
+            <input type="submit" value="Add Board" disabled={ifTitleEmpty || ifOwnerEmpty}></input>
           </div>
         </form>
       )}
