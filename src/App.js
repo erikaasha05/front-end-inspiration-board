@@ -38,7 +38,6 @@ const getAllCardsApi = (boardId) => {
   return axios
     .get(`${kBaseUrl}/boards/${boardId}/cards`)
     .then((response) => {
-      console.log(response.data.cards);
       return response.data.cards.map(convertFromCardApi);
     })
     .catch((error) => {
@@ -47,12 +46,10 @@ const getAllCardsApi = (boardId) => {
 };
 
 const createBoardsApi = (newBoardData) => {
-  // const requestBody = {...boardData};
   return axios
     .post(`${kBaseUrl}/boards`, newBoardData)
     .then((response) => {
       return convertFromApi(response.data.board);
-      // return response.data.board;
     })
     .catch((error) => {
       console.log(error);
@@ -71,7 +68,6 @@ const createCardApi = (boardId, newCardData) => {
 };
 
 const likeCardApi = (cardId) => {
-  // return axios.patch(`${kBaseUrl}/boards/id/cards/${cardsId}/like`)
   return axios
     .patch(`${kBaseUrl}/cards/${cardId}`)
     .then((response) => {
@@ -84,8 +80,8 @@ const likeCardApi = (cardId) => {
 };
 
 const deleteCardApi = (cardId) => {
-  // return axiosaxios.delete(`${kBaseUrl}/boards/id/cards/${cardsId}/like`)
-  return axios.delete(`${kBaseUrl}/cards/${cardId}`).catch((error) => {
+  return axios.delete(`${kBaseUrl}/cards/${cardId}`)
+  .catch((error) => {
     console.log(error);
   });
 };
@@ -100,7 +96,7 @@ function App() {
 
   const getAllCards = (boardId) => {
     return getAllCardsApi(boardId).then((cards) => {
-      console.log(cards);
+      // console.log(cards);
       setCardData(cards);
     });
   };
@@ -112,7 +108,6 @@ function App() {
   };
 
   useEffect(() => {
-    // getAllCards();
     getAllBoards();
   }, []);
 
@@ -131,10 +126,9 @@ function App() {
   };
 
   const deleteCard = (cardId) => {
-    setCardData((cardData) => 
-    cardData.filter((card)=> {
-      return card.cardId !== cardId;
-    }))
+    return deleteCardApi(cardId).then((cardResult) => {
+      return getAllCards(selectedBoard.boardId);
+    });
   };
 
   const handleCardSubmit = (boardId, newCardData) => {
@@ -148,7 +142,6 @@ function App() {
   const selectBoard = (title, owner, boardId) => {
     setSelectedBoard({ boardName: `${title} - ${owner}`, boardId: boardId });
     getAllCards(boardId);
-    // return getAllCardsApi(id);
   };
 
   const currentBoard = selectedBoard.boardName

@@ -12,6 +12,7 @@ const CardList = (props) => {
           <Card 
             // className="cards-list"
             cardId={card.cardId} 
+            key={card.cardId}
             likesCount={card.likesCount} 
             message={card.message} 
             onDeleteCard={props.onDeleteCard} 
