@@ -17,9 +17,9 @@ const convertFromApi = (apiBoard) => {
 };
 
 const convertFromCardApi = (apiCard) => {
-  const { likes_count, card_id, ...rest } = apiCard;
+  const { likes_count, card_id, message} = apiCard;
   // eslint-disable-next-line no-undef
-  const newCard = { likesCount: likes_count, cardId: card_id, ...rest };
+  const newCard = { likesCount: likes_count, cardId: card_id, message: message.toLowerCase() };
   return newCard;
 };
 
@@ -96,7 +96,6 @@ function App() {
 
   const getAllCards = (boardId) => {
     return getAllCardsApi(boardId).then((cards) => {
-      // console.log(cards);
       setCardData(cards);
     });
   };
@@ -156,6 +155,23 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const sortCardData = option => {
+    const options = {
+      cardId: 'cardId',
+      message: "message",
+      likes: "likesCount"
+    };
+    const sortProperty = options[option];
+    if (option === 'cardId' || option === 'likes') {
+      const sorted = [...cardData].sort((a,b) => a[sortProperty] - b[sortProperty]);
+      setCardData(sorted);
+    } else {
+      const sortedMessage = [...cardData].sort((a, b) => (a[sortProperty] < b[sortProperty] ? -1 : 1));
+      setCardData(sortedMessage);
+    }
+  };
+
+
   return (
     <div className="page_container">
       <div className="App">
@@ -169,6 +185,11 @@ function App() {
         <section className="cards-container">
           <div className="card-items_container">
           <h2>Cards For {currentBoard}</h2>
+          <select onChange={(e) => sortCardData(e.target.value)}>
+            <option value="cardId">Card Id</option>
+            <option value="message">Message</option>
+            <option value="likes">Likes</option>
+          </select>
           <CardList
             cardData={cardData}
             onLikeCard={likeCard}
