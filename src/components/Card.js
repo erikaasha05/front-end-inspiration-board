@@ -5,7 +5,7 @@ import "./Card.css";
 const Card = (props) => {
   return (
     <div className="cards-item">
-      <p>{props.message}</p>
+      <p className="message">{props.message}</p>
       <li className="cards-options">
         <p className="likes-count">{props.likesCount}</p>
         <button className="like" onClick={() => props.onLikeCard(props.cardId)}>❤️</button>
