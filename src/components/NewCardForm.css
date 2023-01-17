@@ -13,3 +13,9 @@ input, button {
     margin-bottom: 2em;
     width: 100%;
 }
+
+.add-button_card {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1rem;
+    font-weight: bold;
+}

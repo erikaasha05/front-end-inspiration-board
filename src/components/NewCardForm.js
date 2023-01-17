@@ -43,7 +43,7 @@ const NewCardForm = ({ handleCardSubmit, currentBoard }) => {
           <p>Preview: {cardData.message}</p>
         </div>
         <div>
-          <input type="submit" value="Add a Card" disabled={invalidInput}/>
+          <input className="add-button_card" type="submit" value="Add a Card" disabled={invalidInput}/>
         </div>
       </form>
     </section>

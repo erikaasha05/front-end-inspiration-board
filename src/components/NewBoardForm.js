@@ -69,7 +69,7 @@ const NewBoardForm = (props) => {
             </p>
           </div>
           <div>
-            <input type="submit" value="Add Board" disabled={ifTitleEmpty || ifOwnerEmpty}></input>
+            <input className="add-button_board" type="submit" value="Add Board" disabled={ifTitleEmpty || ifOwnerEmpty}></input>
           </div>
         </form>
       )}
@@ -79,7 +79,7 @@ const NewBoardForm = (props) => {
 };
 
 NewBoardForm.propTypes = {
-  // handleBoardSubmit: PropTypes.func,
+  handleBoardSubmit: PropTypes.func.isRequired,
 };
 
 export default NewBoardForm;

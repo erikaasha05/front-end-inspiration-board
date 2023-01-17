@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import BoardList from "./components/BoardList";
 import CardList from "./components/CardList";
-import "./App.css";
-import axios from "axios";
 import NewBoardForm from "./components/NewBoardForm";
 import NewCardForm from "./components/NewCardForm";
+import "./App.css";
+import strawberry from "./assets/strawberry.png";
 
 const kBaseUrl = "https://inspiration-board-back-end.herokuapp.com";
 
@@ -145,7 +145,7 @@ function App() {
 
   const currentBoard = selectedBoard.boardName
     ? selectedBoard.boardName
-    : "Select a Board from the Board List!";
+    : "*Select a Board from the Board List!*";
 
   const handleBoardSubmit = (data) => {
     createBoardsApi(data)
@@ -175,12 +175,22 @@ function App() {
   return (
     <div className="page_container">
       <div className="App">
-        <h1>Inspiration Board</h1>
+        <span className="cherry">🍒</span>
+        <h1 className="title">P.I.E.E Inspiration Board</h1>
+        <div className="selected-board_container">
+          <h2>Selected Board</h2>
+          <p className="selected-board">{currentBoard}</p>
+        </div>
         <div className="board-container">
           <BoardList boards={boardData} onSelectBoard={selectBoard}></BoardList>
-          <h2>Selected Board</h2>
-          <p>{currentBoard}</p>
           <NewBoardForm handleBoardSubmit={handleBoardSubmit} />
+        </div>
+        <div className="strawberry-container">
+          <img className="strawberry" src={strawberry} alt="strawberry" />
+          <img className="strawberry" src={strawberry} alt="strawberry" />
+          <img className="strawberry" src={strawberry} alt="strawberry" />
+          <img className="strawberry" src={strawberry} alt="strawberry" />
+          <img className="strawberry" src={strawberry} alt="strawberry" />
         </div>
         <section className="cards-container">
           <div className="card-items_container">
@@ -203,6 +213,9 @@ function App() {
             />
           </div>
         </section>
+        <footer>
+          
+        </footer>
       </div>
     </div>
   );
