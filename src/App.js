@@ -195,7 +195,9 @@ function App() {
         <section className="cards-container">
           <div className="card-items_container">
           <h2>Cards For {currentBoard}</h2>
+          
           <select onChange={(e) => sortCardData(e.target.value)}>
+            <option value="" disabled selected hidden>Sort By</option>
             <option value="cardId">Card Id</option>
             <option value="message">Message</option>
             <option value="likes">Likes</option>

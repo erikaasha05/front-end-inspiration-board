@@ -91,3 +91,13 @@ footer {
   flex-direction: column;
   /* grid-column-end: ; */
 }
+
+select {
+    position: relative;
+    display: block;
+    width: 100px;
+    margin: auto;
+    font-family: 'Balsamiq Sans', 'cursive';
+    font-size: 18px;
+    color: #d6427b;
+}
