@@ -6,6 +6,7 @@ import NewBoardForm from "./components/NewBoardForm";
 import NewCardForm from "./components/NewCardForm";
 import "./App.css";
 import strawberry from "./assets/strawberry.png";
+import pie from "./assets/pie.png"
 
 const kBaseUrl = "https://inspiration-board-back-end.herokuapp.com";
 
@@ -175,7 +176,7 @@ function App() {
   return (
     <div className="page_container">
       <div className="App">
-        <span className="cherry">🍒</span>
+        <img className="pie" src={pie} alt="pie" />
         <h1 className="title">P.I.E.E Inspiration Board</h1>
         <div className="selected-board_container">
           <h2>Selected Board</h2>

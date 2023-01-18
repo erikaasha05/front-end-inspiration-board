@@ -24,8 +24,9 @@ footer {
   font-family: 'Balsamiq Sans', 'cursive';
 }
 
-.cherry {
-  font-size: 100px;
+.pie {
+  width: 150px;
+  padding-top: 15px;
 }
 
 .strawberry {
